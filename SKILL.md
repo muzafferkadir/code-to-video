@@ -74,3 +74,11 @@ Show the script and wait for approval or edits.
 ## 5. Variations
 
 Same script, another style: reuse `script.md` unchanged and run step 4 again with the new style. Compare the results side by side in the chat.
+
+## Known pitfalls
+
+- Non-English narration: words are longer, so validate with `--words-min 15 --words-max 21` (Turkish ~16-20 words fills 8-9.5 s).
+- `speech_metrics.sh` miscounts words with non-ASCII letters (ı, ş, ğ…) and may flag `RUSHED`; trust `speech=` and divide the real word count yourself.
+- Submit narration takes one at a time; parallel audio submissions can fail with a misleading "out of credits" error.
+- Video blocks may come back with a preset recommendation instead of a job: resubmit the same item with `declined_preset_id`.
+- Captions: use `audio_to_captions.py --mixed --script script_manifest.json --language <code> --max-words 4`; the per-block path expects voice file names the explainer sidecar does not provide.
